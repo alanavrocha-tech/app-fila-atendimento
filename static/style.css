@@ -1,0 +1,171 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f6f8;
+    color: #222;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 40px 20px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+header h1 {
+    margin: 0;
+    color: #123c69;
+    font-size: 32px;
+}
+
+header p {
+    color: #666;
+}
+
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.card h2 {
+    color: #123c69;
+}
+
+.formulario {
+    display: grid;
+    grid-template-columns: 2fr 1fr auto;
+    gap: 15px;
+}
+
+input,
+select {
+    padding: 13px;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+    font-size: 16px;
+}
+
+input:focus,
+select:focus {
+    outline: 2px solid #1565c0;
+}
+
+.btn {
+    display: inline-block;
+    background: #1565c0;
+    color: white;
+    border: none;
+    padding: 11px 17px;
+    border-radius: 7px;
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn:hover {
+    opacity: 0.85;
+}
+
+.verde {
+    background: #198754;
+}
+
+.vermelho {
+    background: #dc3545;
+}
+
+.titulo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th {
+    background: #123c69;
+    color: white;
+}
+
+th,
+td {
+    padding: 13px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+tr:hover {
+    background: #f7f7f7;
+}
+
+.aguardando {
+    display: inline-block;
+    background: #fff3cd;
+    color: #856404;
+    padding: 6px 10px;
+    border-radius: 20px;
+}
+
+.status-atendimento {
+    display: inline-block;
+    background: #cfe2ff;
+    color: #084298;
+    padding: 6px 10px;
+    border-radius: 20px;
+}
+
+.atendimento {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 15px;
+}
+
+.botoes {
+    display: flex;
+    gap: 10px;
+}
+
+.vazio {
+    text-align: center;
+    color: #777;
+    padding: 25px;
+}
+
+@media (max-width: 700px) {
+    .formulario {
+        grid-template-columns: 1fr;
+    }
+
+    header,
+    .titulo,
+    .atendimento {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    table {
+        font-size: 13px;
+    }
+}

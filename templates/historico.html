@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Histórico de Atendimentos</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <header>
+        <div>
+            <h1>Histórico de Atendimentos</h1>
+            <p>Atendimentos concluídos e cancelados</p>
+        </div>
+
+        <a href="{{ url_for('index') }}" class="btn">
+            Voltar para Fila
+        </a>
+    </header>
+
+
+    <section class="card">
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Cliente</th>
+                    <th>Prioridade</th>
+                    <th>Chegada</th>
+                    <th>Atendimento</th>
+                    <th>Finalização</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+            {% for cliente in clientes %}
+
+                <tr>
+
+                    <td>{{ cliente['id'] }}</td>
+
+                    <td>
+                        <strong>{{ cliente['nome'] }}</strong>
+                    </td>
+
+                    <td>{{ cliente['prioridade'] }}</td>
+
+                    <td>{{ cliente['data_chegada'] }}</td>
+
+                    <td>
+                        {{ cliente['data_atendimento'] or '-' }}
+                    </td>
+
+                    <td>
+                        {{ cliente['data_conclusao'] or '-' }}
+                    </td>
+
+                    <td>
+                        {{ cliente['status'] }}
+                    </td>
+
+                </tr>
+
+            {% else %}
+
+                <tr>
+                    <td colspan="7" class="vazio">
+                        Ainda não existem atendimentos no histórico.
+                    </td>
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </section>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fila de Atendimento</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <header>
+        <div>
+            <h1>Fila de Atendimento</h1>
+            <p>Gerenciamento de clientes</p>
+        </div>
+
+        <a href="{{ url_for('historico') }}" class="btn">
+            Histórico
+        </a>
+    </header>
+
+    <section class="card">
+
+        <h2>Cadastrar Cliente</h2>
+
+        <form action="{{ url_for('adicionar') }}" method="POST">
+
+            <div class="formulario">
+
+                <input
+                    type="text"
+                    name="nome"
+                    placeholder="Digite o nome do cliente"
+                    required
+                >
+
+                <select name="prioridade">
+                    <option value="Normal">Normal</option>
+                    <option value="Preferencial">Preferencial</option>
+                </select>
+
+                <button type="submit" class="btn">
+                    Adicionar à fila
+                </button>
+
+            </div>
+
+        </form>
+
+    </section>
+
+    <section class="card">
+
+        <div class="titulo">
+
+            <h2>Fila de Espera</h2>
+
+            <form action="{{ url_for('chamar_proximo') }}" method="POST">
+                <button type="submit" class="btn verde">
+                    Chamar Próximo
+                </button>
+            </form>
+
+        </div>
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Posição</th>
+                    <th>Cliente</th>
+                    <th>Prioridade</th>
+                    <th>Chegada</th>
+                    <th>Status</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+            {% for cliente in aguardando %}
+
+                <tr>
+                    <td>{{ loop.index }}</td>
+
+                    <td>
+                        <strong>{{ cliente['nome'] }}</strong>
+                    </td>
+
+                    <td>{{ cliente['prioridade'] }}</td>
+
+                    <td>{{ cliente['data_chegada'] }}</td>
+
+                    <td>
+                        <span class="aguardando">
+                            Aguardando
+                        </span>
+                    </td>
+
+                    <td>
+                        <form
+                            action="{{ url_for('cancelar', id=cliente['id']) }}"
+                            method="POST">
+
+                            <button type="submit" class="btn vermelho">
+                                Cancelar
+                            </button>
+
+                        </form>
+                    </td>
+                </tr>
+
+            {% else %}
+
+                <tr>
+                    <td colspan="6" class="vazio">
+                        A fila está vazia.
+                    </td>
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </section>
+
+    <section class="card">
+
+        <h2>Em Atendimento</h2>
+
+        {% for cliente in em_atendimento %}
+
+            <div class="atendimento">
+
+                <div>
+                    <h3>{{ cliente['nome'] }}</h3>
+
+                    <p>
+                        Prioridade: {{ cliente['prioridade'] }}
+                    </p>
+
+                    <span class="status-atendimento">
+                        Em Atendimento
+                    </span>
+                </div>
+
+                <div class="botoes">
+
+                    <form
+                        action="{{ url_for('concluir', id=cliente['id']) }}"
+                        method="POST">
+
+                        <button type="submit" class="btn verde">
+                            Concluir
+                        </button>
+
+                    </form>
+
+                    <form
+                        action="{{ url_for('cancelar', id=cliente['id']) }}"
+                        method="POST">
+
+                        <button type="submit" class="btn vermelho">
+                            Cancelar
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        {% else %}
+
+            <p class="vazio">
+                Nenhum cliente em atendimento.
+            </p>
+
+        {% endfor %}
+
+    </section>
+
+</div>
+
+<script>
+    // Atualização automática da fila a cada 10 segundos
+    setTimeout(function () {
+        window.location.reload();
+    }, 10000);
+</script>
+
+</body>
+</html>
